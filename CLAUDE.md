@@ -1,6 +1,6 @@
 ﻿# Cernyn — Padrão Claude Code para Executivos
 
-> Este scaffold foi criado pela **Cernyn — consultoria de IA** ([cernyn.com](https://cernyn.com/)) como conjunto de boas práticas para apoiar executivos que querem experimentar com Claude Code. **A Cernyn não é a empresa do usuário** — é a consultoria que recomenda este padrão. Ao seguir o padrão, o experimento nasce alinhado com práticas de engenharia que facilitam internalização posterior pelo time de dev da empresa do executivo.
+> Este scaffold foi criado pela **Cernyn — Consultoria Biônica de Engenharia Digital** ([cernyn.com](https://cernyn.com/)) como conjunto de boas práticas para apoiar executivos que querem experimentar com Claude Code. **A Cernyn não é a empresa do usuário** — é a consultoria que recomenda este padrão. Ao seguir o padrão, o experimento nasce alinhado com práticas de engenharia que facilitam internalização posterior pelo time de dev da empresa do executivo.
 
 Este arquivo é lido pelo Claude Code a cada conversa. Ele define **quem é o usuário, o stack recomendado, e como o Claude deve te ajudar**. Não apague nem edite sem entender o impacto.
 
@@ -25,7 +25,7 @@ Executivos — diretores e superintendentes — que usam o Claude Code para expe
 
 ## Stack-alvo recomendado pela Cernyn
 
-A Cernyn (consultoria de IA) recomenda a stack abaixo para experimentos de executivos. Quando o experimento amadurece, ele é internalizado pelo time de dev da empresa do usuário — **se nasceu no padrão recomendado, a internalização é muito mais rápida**. Direcione novas escolhas para esta lista; se o usuário insistir em algo fora, **explique o trade-off** e siga (não bloqueie).
+A Cernyn (Consultoria Biônica de Engenharia Digital) recomenda a stack abaixo para experimentos de executivos. Quando o experimento amadurece, ele é internalizado pelo time de dev da empresa do usuário — **se nasceu no padrão recomendado, a internalização é muito mais rápida**. Direcione novas escolhas para esta lista; se o usuário insistir em algo fora, **explique o trade-off** e siga (não bloqueie).
 
 ### Direcionamento técnico recomendado
 - **Linguagem primária:** **Node.js** (TypeScript) — todo experimento NOVO começa aqui

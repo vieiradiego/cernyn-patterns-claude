@@ -7,13 +7,13 @@
 [![PT-BR](https://img.shields.io/badge/idioma-PT--BR-009C3B.svg)](#)
 [![Cernyn](https://img.shields.io/badge/by-Cernyn-FF6B35.svg)](https://cernyn.com/)
 
-> Scaffold de boas práticas para iniciar experimentos com Claude Code, criado e mantido pela **Cernyn — consultoria de IA** ([cernyn.com](https://cernyn.com/)).
+> Scaffold de boas práticas para iniciar experimentos com Claude Code, criado e mantido pela **Cernyn — Consultoria Biônica de Engenharia Digital** ([cernyn.com](https://cernyn.com/)).
 
 ## Para quem é isto?
 
 Executivos (diretores, superintendentes, líderes de área) que querem **prototipar ideias, automatizar tarefas e validar hipóteses** com Claude Code, sem precisar virar desenvolvedor — e sem cair em armadilhas de tecnologia ruim que vão atrasar a internalização do projeto pelo time de dev da sua empresa.
 
-A Cernyn é uma consultoria de IA. Este scaffold é o que recomendamos aos executivos que apoiamos para que seus experimentos:
+A Cernyn é uma Consultoria Biônica de Engenharia Digital — combinamos especialistas humanos com squads assistidos por IA. Este scaffold é o que recomendamos aos executivos que apoiamos para que seus experimentos:
 
 1. Nasçam alinhados com as práticas de engenharia que o mercado corporativo adota
 2. Sejam revisados continuamente por especialistas (revisores IA embutidos)
@@ -207,7 +207,7 @@ Todos respondem em **português**, explicam o porquê, e mostram o código corri
 ## Dúvidas frequentes
 
 **P: Eu preciso ser da Cernyn para usar isto?**
-R: Não. Cernyn é uma consultoria de IA e este scaffold é um conjunto público de boas práticas. Qualquer executivo, de qualquer empresa, pode clonar e usar.
+R: Não. Cernyn é uma Consultoria Biônica de Engenharia Digital e este scaffold é um conjunto público de boas práticas. Qualquer executivo, de qualquer empresa, pode clonar e usar.
 
 **P: Preciso de conta AWS para usar isto?**
 R: Não. O scaffold vem com Docker Compose que simula AWS localmente. Conta AWS só é sugerida quando o experimento amadurece.
@@ -231,7 +231,7 @@ R: Não obrigatório durante a experimentação. Mas o scaffold já está config
 
 ## Sobre a Cernyn
 
-A **Cernyn** é uma consultoria de IA. Nosso trabalho é apoiar executivos a transformar ideias em produtos com IA de forma estruturada e responsável.
+A **Cernyn** é uma Consultoria Biônica de Engenharia Digital. Combinamos especialistas humanos com squads assistidos por IA para modernizar sistemas legados, desenhar arquiteturas de valor e acelerar o time-to-market dos nossos clientes.
 
 Saiba mais em [ABOUT-CERNYN.md](./ABOUT-CERNYN.md) ou no [site oficial](https://cernyn.com/).
 
@@ -263,4 +263,4 @@ Atendemos executivos e empresas que querem resultados práticos com IA — não 
 
 ---
 
-<sub>_Made with care by [Cernyn](https://cernyn.com/) — consultoria de IA. Este scaffold é gratuito e aberto para a comunidade._</sub>
+<sub>_Mantido pela [Cernyn](https://cernyn.com/) — Consultoria Biônica de Engenharia Digital. Este scaffold é gratuito e aberto para a comunidade._</sub>

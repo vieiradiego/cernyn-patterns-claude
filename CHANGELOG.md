@@ -58,4 +58,4 @@ Todas as instruções cobrem Windows, macOS e Linux explicitamente quando há di
 
 ---
 
-_Mantido por [Cernyn](https://cernyn.com/) — consultoria de IA._
+_Mantido por [Cernyn](https://cernyn.com/) — Consultoria Biônica de Engenharia Digital._
