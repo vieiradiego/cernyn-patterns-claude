@@ -1,6 +1,6 @@
 # Padrão Claude Code — por Cernyn
 
-[![Versão](https://img.shields.io/badge/versão-0.1.0-blue.svg)](./CHANGELOG.md)
+[![Versão](https://img.shields.io/badge/versão-1.1.0-blue.svg)](./CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-compatível-7C3AED.svg)](https://docs.claude.com/claude-code)
 [![Node.js](https://img.shields.io/badge/Node.js-≥20-43853d.svg)](https://nodejs.org/)
 [![Plataforma](https://img.shields.io/badge/plataforma-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](./docs/pre-requisitos.md)

@@ -11,9 +11,27 @@ Histórico de versões deste scaffold. Seguimos [Semantic Versioning](https://se
 
 ---
 
-## [0.1.0] — 2026-05-23
+## [1.1.0] — 2026-05-23
 
-Versão inicial pública do scaffold.
+Identidade visual oficial + reposicionamento da Cernyn como Consultoria Biônica.
+
+### Adicionado
+- **Social preview oficial** ([.github/social-preview.png](.github/social-preview.png), 1280×640) com a identidade visual completa da Cernyn — Nexus Mark com glow violeta+ciano, wordmark **CERNYN** em Sora 700, pill "Consultoria Biônica · Engenharia Digital", título principal com gradient violeta→ciano 135° (assinatura visual do site), tipografia Sora/Inter/JetBrains Mono. Aparece quando o link do repo é compartilhado em LinkedIn, Slack, Twitter etc.
+
+### Alterado
+- **Reposicionamento da Cernyn como Consultoria Biônica de Engenharia Digital** em todos os arquivos públicos — antes "consultoria de IA" (atributo redutor), agora "Consultoria Biônica" (combinação humano + IA, foco em modernização de legado, arquitetura de valor, ROI e Speed-to-Market). Aplicado em:
+  - [ABOUT-CERNYN.md](ABOUT-CERNYN.md) — reescrito para refletir o posicionamento Biônico, com tagline oficial "Arquitetura para Evoluir Negócios" e seção explicando o conceito Biônico
+  - [README.md](README.md) — 5 ocorrências em diferentes contextos (subtítulo, FAQ, "Sobre a Cernyn", footer)
+  - [CLAUDE.md](CLAUDE.md) — header e seção de direcionamento técnico
+  - [CHANGELOG.md](CHANGELOG.md) — footer
+  - 6 slash commands em [.claude/commands/](.claude/commands/) — todos os rodapés
+- **Versão badge** atualizada no README de `0.1.0` para `1.1.0`
+
+---
+
+## [1.0.0] — 2026-05-23
+
+Lançamento estável inicial do scaffold (promovido de v0.1.0).
 
 ### Estrutura raiz
 - `CLAUDE.md` com perfil de usuário (executivos), stack-alvo (Node + Next.js), princípios universais (Clean Code + 12-Factor) e regras de uso
