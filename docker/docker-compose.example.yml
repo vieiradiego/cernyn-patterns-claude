@@ -1,0 +1,147 @@
+# Docker Compose — simulação local da AWS Cernyn
+#
+# Sobe os serviços mais comuns usados em experimentos:
+#   - LocalStack (Lambda, API Gateway, S3, SNS, SQS, EventBridge, Kinesis, Glue, Athena)
+#   - DynamoDB Local
+#   - Redis
+#   - PostgreSQL
+#   - MinIO (alternativa a S3 com console web)
+#   - Ollama (LLM open-source local — só para POC; em produção, Bedrock)
+#
+# Uso:
+#   docker compose -f docker/docker-compose.example.yml up -d
+#   docker compose -f docker/docker-compose.example.yml down
+#
+# Comente serviços que você não vai usar para economizar RAM.
+
+services:
+  # ============================================================
+  # LocalStack — emula múltiplos serviços AWS
+  # ============================================================
+  localstack:
+    image: localstack/localstack:latest
+    container_name: cernyn-localstack
+    ports:
+      - "4566:4566" # Edge port (todos os serviços)
+    environment:
+      - SERVICES=lambda,apigateway,s3,sns,sqs,eventbridge,kinesis,glue,athena,iam,sts,logs
+      - DEBUG=0
+      - DEFAULT_REGION=us-east-1
+      - PERSISTENCE=1
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================
+  # DynamoDB Local — banco NoSQL
+  # ============================================================
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    container_name: cernyn-dynamodb
+    ports:
+      - "8000:8000"
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+    volumes:
+      - dynamodb-data:/data
+    working_dir: /home/dynamodblocal
+
+  # Interface web para o DynamoDB Local (opcional)
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin:latest
+    container_name: cernyn-dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb:8000
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=fake
+      - AWS_SECRET_ACCESS_KEY=fake
+    depends_on:
+      - dynamodb
+
+  # ============================================================
+  # Redis — cache e sessão
+  # ============================================================
+  redis:
+    image: redis:7-alpine
+    container_name: cernyn-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ============================================================
+  # PostgreSQL — substitui RDS para experimentação
+  # ============================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: cernyn-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=cernyn
+      - POSTGRES_PASSWORD=cernyn_dev
+      - POSTGRES_DB=cernyn_dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cernyn"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================
+  # MinIO — alternativa a S3 com console web (opcional)
+  # Descomente se preferir MinIO em vez do S3 do LocalStack
+  # ============================================================
+  # minio:
+  #   image: minio/minio:latest
+  #   container_name: cernyn-minio
+  #   ports:
+  #     - "9000:9000"   # API
+  #     - "9001:9001"   # Console web
+  #   environment:
+  #     - MINIO_ROOT_USER=cernyn
+  #     - MINIO_ROOT_PASSWORD=cernyn_dev_minio
+  #   command: server /data --console-address ":9001"
+  #   volumes:
+  #     - minio-data:/data
+
+  # ============================================================
+  # Ollama — LLM open-source local (alternativa POC ao Bedrock)
+  # IMPORTANTE: Em produção, use Bedrock — Ollama é só para POC.
+  # Descomente quando precisar.
+  # ============================================================
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: cernyn-ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   # Para uso com GPU NVIDIA, descomente:
+  #   # deploy:
+  #   #   resources:
+  #   #     reservations:
+  #   #       devices:
+  #   #         - driver: nvidia
+  #   #           count: 1
+  #   #           capabilities: [gpu]
+
+volumes:
+  localstack-data:
+  dynamodb-data:
+  redis-data:
+  postgres-data:
+  # minio-data:
+  # ollama-data:

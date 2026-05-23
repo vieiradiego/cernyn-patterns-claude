@@ -1,0 +1,110 @@
+# ===== Segredos =====
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.key
+*.crt
+.aws/credentials
+secrets/
+credentials/
+
+# ===== Node.js =====
+node_modules/
+.npm/
+.pnpm-store/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+out/
+dist/
+build/
+.turbo/
+.eslintcache
+coverage/
+*.tsbuildinfo
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.ipynb_checkpoints/
+
+# ===== .NET =====
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+.vs/
+*.pdb
+TestResults/
+[Dd]ebug/
+[Rr]elease/
+publish/
+
+# ===== Angular / Frontend =====
+.angular/
+dist/
+
+# ===== Terraform =====
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+*.tfvars
+!example.tfvars
+
+# ===== Docker =====
+.docker/
+docker-data/
+
+# ===== IDE =====
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== Sistema operacional =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Dados sensíveis (não commitar amostras reais) =====
+dados-reais/
+data-real/
+*.xlsx
+*.csv
+!exemplo*.csv
+!sample*.csv
+!example*.csv
+*.parquet
+*.sqlite
+*.db
+
+# ===== Artefatos do experimento =====
+*.tmp
+*.bak
+*.orig
+.cache/
+
+# ===== Claude Code — não versionar settings.local =====
+.claude/settings.local.json
