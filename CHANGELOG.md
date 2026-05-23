@@ -13,6 +13,13 @@ Histórico de versões deste scaffold. Seguimos [Semantic Versioning](https://se
 
 ## [Não lançado]
 
+### Adicionado
+- **README com "Como começar" em 3 caminhos** — substitui o passo a passo único anterior, atendendo três contextos distintos de chegada do executivo:
+  - **Caminho A** (claude.ai/Desktop aberto): prompt pronto para colar, com placeholder de SO, que faz o Claude guiar o setup do zero
+  - **Caminho B** (Claude Code já instalado): 4 passos usando o botão "Use this template" do GitHub — sem necessidade de `git clone` + reset do `.git`
+  - **Caminho C** (não tem nada instalado): matriz de instalação Windows / macOS / Linux com winget / brew / apt
+- **`/setup-inicial` agora detecta automaticamente o cenário do usuário** ([.claude/commands/setup-inicial.md](.claude/commands/setup-inicial.md)) — distingue **template GitHub (sem `.git`)**, **clone direto do scaffold público** (oferece reset do `.git`) e **repo do próprio usuário** (não mexe). Resolve a fricção de "para que apagar o `.git`?" que confundia executivos não-devs
+
 ### Corrigido
 - **Documentação cross-platform** — instruções e exemplos agora cobrem Windows, macOS e Linux explicitamente:
   - [docs/pre-requisitos.md](docs/pre-requisitos.md): instruções de instalação por SO (winget / brew / apt / dnf) para Git, Node, Docker, Python, AWS CLI, .NET, Terraform

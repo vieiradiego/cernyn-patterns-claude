@@ -40,56 +40,96 @@ Este scaffold resolve isso vindo **pré-configurado** com:
 
 ---
 
-## Como usar
+## Como começar
 
-### 1. Clone este repositório
+Escolha o caminho que mais bate com você. Os 3 levam ao mesmo destino — scaffold rodando no seu computador.
 
-Comandos universais (funcionam em qualquer terminal — PowerShell, Terminal do macOS, bash/zsh do Linux):
+---
+
+### 🤖 Caminho A — Tenho um Claude aberto agora (claude.ai ou Claude Desktop)
+
+Recomendado se você não tem terminal aberto e quer **conversar para configurar**.
+
+Copie e cole o prompt abaixo na sua conversa com o Claude:
+
+> Quero usar o scaffold Cernyn de boas práticas para Claude Code:
+> https://github.com/vieiradiego/cernyn-patterns-claude
+>
+> Por favor:
+> 1. Leia o README do repositório
+> 2. Me explique em 3 frases o que esse scaffold faz
+> 3. Verifique comigo quais ferramentas eu já tenho instaladas (me pergunte como rodar `git --version`, `node --version` e `claude --version` no meu sistema operacional — eu uso **[Windows / macOS / Linux]**, escolha um)
+> 4. Me oriente a criar meu próprio repositório a partir do template no GitHub (botão "Use this template")
+> 5. Me dê o comando exato para clonar meu novo repositório no meu computador
+> 6. Me explique como abrir o Claude Code dentro dessa pasta e rodar `/setup-inicial`
+>
+> Eu sou executivo, não desenvolvedor. Fala comigo em português, explica o porquê das coisas, e não assuma que eu sei o que é terminal.
+
+O Claude vai te guiar passo a passo. Quando ele te mandar instalar o Claude Code e abrir um terminal, você cai no **Caminho B** abaixo.
+
+---
+
+### 💻 Caminho B — Já tenho Claude Code instalado no terminal
+
+Quatro passos:
+
+**1. Crie seu repositório a partir do template**
+
+- Acesse https://github.com/vieiradiego/cernyn-patterns-claude
+- Clique no botão verde **"Use this template"** → **"Create a new repository"**
+- Dê um nome (ex: `meu-experimento`), escolha público ou privado, clique em **"Create repository"**
+- GitHub cria um repo novo no seu user, sem o histórico Cernyn
+
+**2. Clone seu novo repositório**
 
 ```bash
-git clone <url-deste-repositorio> meu-experimento
+git clone https://github.com/SEU_USER/meu-experimento
 cd meu-experimento
 ```
 
-Para começar com histórico Git limpo (escolha conforme seu sistema):
+**3. Abra com Claude Code**
 
-**Windows (PowerShell):**
-```powershell
-Remove-Item -Recurse -Force .git
-git init
-```
-
-**macOS / Linux (bash/zsh):**
 ```bash
-rm -rf .git
-git init
-```
-
-### 2. Abra com Claude Code e rode o setup guiado
-
-```powershell
 claude
 ```
 
-Dentro do Claude, rode:
+**4. Rode o setup guiado**
+
+Dentro do Claude:
 
 ```
 /setup-inicial
 ```
 
-Ele vai:
-- Verificar pré-requisitos (Git, Node, Docker, etc.)
-- Personalizar o `CLAUDE.md` com seu nome e área
-- Inicializar o Git
-- (Opcional) Subir os serviços Docker locais
+Ele detecta seu SO, verifica pré-requisitos, personaliza o `CLAUDE.md` com seu nome e área, e te leva para o `/novo-experimento`.
 
-### 3. Comece pelo comando guiado
+---
+
+### 🆕 Caminho C — Nunca instalei nada
+
+Instale o mínimo (10 min) e volte ao **Caminho B**.
+
+| Ferramenta | Windows | macOS | Linux (Ubuntu/Debian) |
+|---|---|---|---|
+| **Git** | [git-scm.com/download/win](https://git-scm.com/download/win) ou `winget install Git.Git` | `brew install git` | `sudo apt install -y git` |
+| **Node.js 20+** | [nodejs.org](https://nodejs.org/) (LTS) ou `winget install OpenJS.NodeJS.LTS` | `brew install node` | [NodeSource](https://github.com/nodesource/distributions) |
+| **Claude Code** | https://docs.claude.com/claude-code/quickstart | mesmo link | mesmo link |
+
+Instruções detalhadas com macOS Homebrew, Fedora/RHEL e instalações sem `sudo` em [docs/pre-requisitos.md](./docs/pre-requisitos.md).
+
+Quando terminar, abra um terminal e siga o **Caminho B** acima.
+
+---
+
+### Depois do `/setup-inicial`, comece pelo comando guiado
+
+Dentro do Claude Code, rode:
 
 ```
 /novo-experimento
 ```
 
-Ele vai fazer perguntas e montar a estrutura do seu primeiro experimento.
+Ele faz perguntas sobre o que você quer experimentar e monta a estrutura inicial.
 
 ---
 
