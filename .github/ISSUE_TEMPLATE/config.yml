@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💼 Apoio profissional Cernyn (consultoria)
+    url: https://cernyn.com/
+    about: Para apoio especializado (estratégia, implementação, capacitação), fale com a Cernyn — não abra issue.
+  - name: 📧 Contato comercial
+    url: mailto:pinus@cernyn.com
+    about: Dúvidas comerciais sobre serviços Cernyn.
+  - name: 📖 Documentação Claude Code (Anthropic)
+    url: https://docs.claude.com/claude-code
+    about: Dúvidas sobre o próprio Claude Code (a ferramenta) — refira-se à documentação oficial.

@@ -1,0 +1,51 @@
+# Normalização de line endings — silencia avisos LF/CRLF e mantém consistência cross-platform
+# https://git-scm.com/docs/gitattributes
+
+# Default: detectar texto vs. binário automaticamente; texto fica com LF normalizado no repo
+* text=auto eol=lf
+
+# Arquivos explicitamente Windows (raros aqui — mantém CRLF se aparecerem)
+*.bat        text eol=crlf
+*.cmd        text eol=crlf
+*.ps1        text eol=crlf
+
+# Scripts e código que rodam multiplataforma: LF sempre
+*.sh         text eol=lf
+*.mjs        text eol=lf
+*.js         text eol=lf
+*.ts         text eol=lf
+*.tsx        text eol=lf
+*.jsx        text eol=lf
+*.cjs        text eol=lf
+*.py         text eol=lf
+
+# Documentação e config
+*.md         text eol=lf
+*.yml        text eol=lf
+*.yaml       text eol=lf
+*.json       text eol=lf
+*.toml       text eol=lf
+*.html       text eol=lf
+*.css        text eol=lf
+*.scss       text eol=lf
+
+# Linguagem-específico
+*.cs         text eol=lf
+*.csproj     text eol=lf
+*.tf         text eol=lf
+*.hcl        text eol=lf
+
+# Sem normalização (binários)
+*.png        binary
+*.jpg        binary
+*.jpeg       binary
+*.gif        binary
+*.ico        binary
+*.pdf        binary
+*.zip        binary
+*.gz         binary
+*.tar        binary
+*.xlsx       binary
+*.xls        binary
+*.docx       binary
+*.pptx       binary
