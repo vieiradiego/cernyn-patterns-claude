@@ -2,7 +2,7 @@
 
 Registre aqui as decisões técnicas relevantes do seu experimento. Este arquivo viaja com o projeto e é uma das primeiras coisas que o time de dev lê no handoff.
 
-> Dica: cada decisão importante também merece um arquivo em `.LEARNINGS/` com mais detalhe (capturado via `/aprender`). Aqui no `decisoes.md` deixe o resumo executivo.
+> Dica: cada decisão importante também merece um arquivo em `.learnings/` com mais detalhe (capturado via `/aprender`). Aqui no `decisoes.md` deixe o resumo executivo.
 
 ## Formato sugerido
 

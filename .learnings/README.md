@@ -1,4 +1,4 @@
-# .LEARNINGS — Memória viva do projeto
+# .learnings — Memória viva do projeto
 
 Esta pasta é o **caderno de bordo** do projeto. Tudo que o Claude e você descobrirem durante o experimento — decisões tomadas, gotchas, padrões que funcionaram, becos sem saída — é registrado aqui.
 
@@ -10,13 +10,13 @@ Em projetos de experimentação não-dev acontecem três problemas:
 2. **O Claude perde contexto** entre sessões e propõe a mesma solução que já foi descartada.
 3. **O time de dev recebe o experimento** sem entender o raciocínio por trás das escolhas.
 
-`.LEARNINGS/` resolve os três: viaja junto com o projeto (no Git), é lida pelo Claude no início de cada sessão, e vira documentação automática no handoff.
+`.learnings/` resolve os três: viaja junto com o projeto (no Git), é lida pelo Claude no início de cada sessão, e vira documentação automática no handoff.
 
 ## Como funciona
 
-- **`MEMORY.md`** é o índice. Listagem curta de uma linha por aprendizado.
+- **`memory.md`** é o índice. Listagem curta de uma linha por aprendizado.
 - Cada aprendizado é um arquivo `.md` separado nesta pasta, com frontmatter.
-- O Claude lê `MEMORY.md` no início de cada sessão e abre os arquivos relevantes conforme o tópico.
+- O Claude lê `memory.md` no início de cada sessão e abre os arquivos relevantes conforme o tópico.
 
 ## Como adicionar um aprendizado
 
@@ -33,7 +33,7 @@ O comando pergunta o tipo, título e contexto, e cria o arquivo + atualiza o ín
 ### Manualmente
 
 1. Crie um arquivo `nome-curto-kebab-case.md` nesta pasta com o frontmatter abaixo.
-2. Adicione uma linha em `MEMORY.md` apontando para o arquivo.
+2. Adicione uma linha em `memory.md` apontando para o arquivo.
 
 ### Formato do arquivo de aprendizado
 
@@ -74,7 +74,7 @@ Quando isto se aplica no futuro.
 - **Curto é melhor que detalhado.** Se o aprendizado precisa de mais de uma tela, divida em vários.
 - **Sempre o porquê.** "Usamos Redis" é fraco. "Usamos Redis porque DynamoDB TTL não atende para sessões < 1min" é forte.
 - **Não duplique.** Se já existe um aprendizado parecido, atualize em vez de criar novo.
-- **Não use para documentação geral.** Para isso existe a pasta `docs/`. `.LEARNINGS/` é insights pontuais.
+- **Não use para documentação geral.** Para isso existe a pasta `docs/`. `.learnings/` é insights pontuais.
 
 ---
 

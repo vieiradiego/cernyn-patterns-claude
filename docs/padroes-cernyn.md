@@ -4,17 +4,9 @@ Este documento resume os padrões técnicos da Cernyn que você deve seguir nos 
 
 ## 1. Antes de começar — escolha de stack
 
-Não escolha tecnologia por capricho. Direcionamento corporativo Cernyn: **Node-first**. Use a tabela:
+Não escolha tecnologia por capricho. Direcionamento corporativo Cernyn: **Node-first** (Node/TS + Next.js para o novo; .NET e Angular são legado em manutenção).
 
-| Você quer... | Use (direção atual) | Legado (só manter) |
-|---|---|---|
-| API REST / serviço backend | **Node + NestJS** (estruturado) ou Fastify (leve) | .NET 8 (manter, não iniciar novo) |
-| App web com interface | **Next.js** | Angular (em descontinuação) |
-| Automação local de tarefa | **Node (TypeScript)** ou Python | — |
-| Análise de dados / relatório | Python + Jupyter | — |
-| Pipeline de dados (ETL) | Python ou dbt | — |
-| POC com IA generativa | **Bedrock + Node ou Python** | — |
-| Servir front em produção | S3 + CloudFront | — |
+> A **tabela completa** de "o que usar para cada caso" (direção × legado) é a fonte única em [stack-cernyn.md](stack-cernyn.md). Mantemos num só lugar para não divergir — este documento foca nas **convenções de processo** (estrutura, Git, qualidade, segurança, infra).
 
 **Fora do padrão?** Pergunte por quê. Cada saída do padrão é uma promessa de retrabalho no handoff.
 
@@ -30,7 +22,7 @@ meu-experimento/
 ├── src/                   # Código
 ├── tests/                 # Testes
 ├── docs/                  # Documentação adicional
-├── .LEARNINGS/            # Caderno de bordo
+├── .learnings/            # Caderno de bordo
 └── HANDOFF.md             # Gerado por /preparar-handoff
 ```
 
@@ -83,6 +75,7 @@ test: adiciona testes para regra de aprovação
 ```
 
 ### Pull Request
+- Use o template [`.github/pull_request_template.md`](../.github/pull_request_template.md) — já traz as seções e o checklist
 - Título com prefixo Conventional Commit
 - Descrição com **o quê / por quê / como testar**
 - Pequeno (idealmente <400 linhas)
@@ -90,27 +83,15 @@ test: adiciona testes para regra de aprovação
 
 ## 5. Qualidade — SonarQube
 
-Antes do handoff, o time de dev exige passar no Quality Gate do SonarQube. Os erros mais comuns:
+Antes do handoff, o time de dev exige passar no Quality Gate do SonarQube: cobertura ≥ 70% para código novo, sem bugs críticos, sem code smells de complexidade ou duplicação.
 
-- **Bugs:** null pointer, divisão por zero, recursos não fechados
-- **Vulnerabilidades:** SQL injection, XSS, secrets hardcoded
-- **Code Smells:** complexidade > 15, função > 60 linhas, duplicação
-- **Coverage:** mínimo 70% para código novo
-
-Os 7 revisores do scaffold já apontam estes itens.
+> Os critérios concretos que evitam reprovação estão na skill `padroes-engenharia-cernyn` (fonte única) — o Claude já os aplica ao escrever código, e os 7 revisores apontam o que escapar.
 
 ## 6. Segurança — Veracode
 
-Antes da produção, o time roda Veracode. Foque em:
+Antes da produção, o time roda Veracode (SAST/SCA). As CWEs que mais reprovam — SQL injection, XSS, credencial hardcoded, path traversal, deserialização insegura, cripto fraca — estão catalogadas na skill `padroes-engenharia-cernyn` (seção Veracode).
 
-- **CWE-89:** SQL injection
-- **CWE-79:** XSS
-- **CWE-798:** Hardcoded credentials
-- **CWE-22:** Path traversal
-- **CWE-502:** Insecure deserialization
-- **CWE-327:** Weak crypto (MD5, SHA1)
-
-O `revisor-seguranca` é a primeira linha — use-o sempre antes de qualquer push.
+O `revisor-seguranca` é a primeira linha **e** a fonte profunda — use-o sempre antes de qualquer push que toque credenciais, dados de cliente ou rede.
 
 ## 7. Infra como código — Terraform
 

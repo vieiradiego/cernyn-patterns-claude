@@ -7,11 +7,13 @@ Termos técnicos e jargões corporativos que aparecem no scaffold, explicados em
 | Termo | O que é |
 |---|---|
 | **CLAUDE.md** | Arquivo na raiz do projeto que ensina ao Claude o contexto: quem você é, qual o stack, regras do projeto. É carregado em toda conversa. |
-| **Slash command** | Comando que você digita começando com `/`, ex: `/novo-experimento`. Executa um fluxo pré-programado. |
+| **Slash command** | Comando que você digita começando com `/`, ex: `/novo-experimento`. Executa um fluxo pré-programado. **Você** dispara. |
+| **Skill** | Pacote de conhecimento/procedimento em `.claude/skills/`. O **Claude carrega sozinho** quando a tarefa casa com a descrição da skill (ex: padrões de código ao escrever código). Diferente do slash command, que você dispara digitando `/`. |
 | **Subagent** | Um "Claude especializado" para uma tarefa (ex: revisor de código). Você invoca pelo nome (ex: "use o revisor-node"). |
 | **Hook** | Script que roda automaticamente em eventos do Claude (ex: depois de cada edição, antes de cada push). |
-| **.LEARNINGS/** | Pasta de "memória viva" do projeto — registra decisões, gotchas e padrões aprendidos. Viaja no Git com o projeto. |
+| **.learnings/** | Pasta de "memória viva" do projeto — registra decisões, gotchas e padrões aprendidos. Viaja no Git com o projeto. |
 | **Tool** | Capacidade do Claude para interagir com seu ambiente (Read, Write, Edit, Bash, etc.). |
+| **MCP / `.mcp.json`** | "Tomada" que conecta o Claude a ferramentas e dados externos (documentação atualizada, navegador, GitHub). Configurado em `.mcp.json` na raiz. Não troca o modelo de IA — continua Bedrock/Claude. Veja [mcp-servers.md](mcp-servers.md). |
 
 ## Termos de stack/desenvolvimento
 
@@ -102,4 +104,4 @@ Termos técnicos e jargões corporativos que aparecem no scaffold, explicados em
 
 ---
 
-Faltou algum termo? Sugira ao Claude registrar em `.LEARNINGS/` para a próxima versão deste glossário.
+Faltou algum termo? Sugira ao Claude registrar em `.learnings/` para a próxima versão deste glossário.

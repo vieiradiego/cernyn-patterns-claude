@@ -48,7 +48,8 @@
       "Write(*)",
       "Edit(*)",
       "Glob(*)",
-      "Grep(*)"
+      "Grep(*)",
+      "mcp__context7"
     ],
     "ask": [
       "Bash(terraform apply:*)",
@@ -65,6 +66,10 @@
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)",
       "Bash(docker system prune:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(npm publish:*)",
       "Bash(rm:*)"
     ],
     "deny": [
@@ -74,6 +79,10 @@
       "Read(.env)",
       "Read(.env.*)",
       "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.pfx)",
+      "Read(**/id_rsa*)",
+      "Read(**/.ssh/**)",
       "Read(**/credentials)",
       "Read(**/.aws/credentials)"
     ]

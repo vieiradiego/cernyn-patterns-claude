@@ -8,10 +8,10 @@ import { resolve } from 'node:path';
 const cwd = process.cwd();
 const messages = [];
 
-// Primeira execução? sinais: sem .git E .LEARNINGS vazia E exemplos/ vazia
+// Primeira execução? sinais: sem .git E .learnings vazia E exemplos/ vazia
 const hasGit = existsSync(resolve(cwd, '.git'));
 let learningCount = 0;
-const memoryPath = resolve(cwd, '.LEARNINGS', 'MEMORY.md');
+const memoryPath = resolve(cwd, '.learnings', 'memory.md');
 if (existsSync(memoryPath)) {
   const content = readFileSync(memoryPath, 'utf8');
   // Ignora exemplos dentro de comentários HTML (template usa "- [Título curto](...)" como exemplo)
@@ -35,9 +35,9 @@ if (isFirstRun) {
   messages.push('Não force — apenas ofereça uma vez no início da conversa.');
 } else {
   if (learningCount > 0) {
-    messages.push(`📒 Este projeto tem ${learningCount} aprendizado(s) registrado(s) em .LEARNINGS/MEMORY.md — consulte antes de propor soluções.`);
+    messages.push(`📒 Este projeto tem ${learningCount} aprendizado(s) registrado(s) em .learnings/memory.md — consulte antes de propor soluções.`);
   } else {
-    messages.push('📒 .LEARNINGS/ está vazio. Lembre-se de capturar decisões importantes com /aprender.');
+    messages.push('📒 .learnings/ está vazio. Lembre-se de capturar decisões importantes com /aprender.');
   }
 }
 

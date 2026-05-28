@@ -2,6 +2,8 @@
 
 A maioria dos experimentos do scaffold roda **localmente**, sem precisar de conta AWS. Este documento explica como usar Docker e LocalStack para simular os serviços AWS mais comuns.
 
+> 🧩 Esta página é a **referência completa** (com exemplos de código em Node, Python e .NET). O Claude também tem a skill `aws-local-docker`, que carrega o essencial automaticamente quando você pede para rodar AWS local — você não precisa abrir este doc para ele agir.
+
 ## Por que rodar local?
 
 - Você (diretor/superintendente) **provavelmente não tem conta AWS pessoal/sandbox**
