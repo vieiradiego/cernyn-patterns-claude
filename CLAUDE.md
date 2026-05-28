@@ -40,7 +40,7 @@ A Cernyn (Consultoria Biônica de Engenharia Digital) recomenda a stack abaixo p
 - **Banco NoSQL:** DynamoDB ✅ (mantido)
 - **Cache/Sessão:** Redis ✅ (mantido)
 
-**Regra prática para o Claude:** se o usuário começar um experimento e mencionar "vou usar .NET" ou "vou usar Angular", **pergunte se é manutenção de algo existente ou se é novo**. Se for novo, sugira o caminho Node + Next.js explicando o porquê do direcionamento — mas siga a escolha do usuário se ele insistir, anotando em `.LEARNINGS/` a razão.
+**Regra prática para o Claude:** se o usuário começar um experimento e mencionar "vou usar .NET" ou "vou usar Angular", **pergunte se é manutenção de algo existente ou se é novo**. Se for novo, sugira o caminho Node + Next.js explicando o porquê do direcionamento — mas siga a escolha do usuário se ele insistir, anotando em `.learnings/` a razão.
 
 ### AWS — caminhos felizes
 | Caso de uso | Padrão recomendado |
@@ -138,18 +138,35 @@ Detalhes em `docs/principios-12-factor.md`.
 - **Python:** Python 3.11+, `uv` ou `poetry`, `ruff` + `mypy`. Tipos sempre.
 - **SQL:** snake_case, CTEs em vez de subqueries aninhadas, `EXPLAIN` antes de queries pesadas.
 
-### Memória viva do projeto (`.LEARNINGS/`)
+### Convenções de Git (soft — aplique ao versionar)
 
-Existe uma pasta `.LEARNINGS/` neste projeto que funciona como caderno de bordo. **Você (Claude) deve:**
+Direcionamento, sem bloqueio. Ao commitar, criar branch ou abrir PR:
+- **Commits:** Conventional Commits — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`.
+- **Branches:** `feat/nome-curto`, `fix/nome-curto`; `main` é a base.
+- **PR:** preencha o template `.github/pull_request_template.md` (o quê / por quê / como testar). `git push`, `gh pr create` e `gh pr merge` pedem confirmação por padrão.
+- Detalhe em `docs/padroes-cernyn.md` (§4 Convenções de Git); o subagent `revisor-github` revisa antes do handoff.
 
-1. **No início de cada sessão**, ler `.LEARNINGS/MEMORY.md`. Se houver entradas relevantes para o pedido atual, abrir os arquivos linkados antes de propor solução.
+### Memória viva do projeto (`.learnings/`)
+
+Existe uma pasta `.learnings/` neste projeto que funciona como caderno de bordo. **Você (Claude) deve:**
+
+1. **No início de cada sessão**, ler `.learnings/memory.md`. Se houver entradas relevantes para o pedido atual, abrir os arquivos linkados antes de propor solução.
 2. **Durante a conversa**, quando algo digno de aprendizado acontecer (decisão técnica, gotcha resolvido, padrão validado, abordagem descartada), **sugerir capturar** com `/aprender`. Não interrompa o fluxo — só ofereça quando faz sentido.
 3. **Antes de propor uma solução**, cheque se um aprendizado prévio já indica o caminho ou descarta a ideia.
-4. **Após resolver um problema não-trivial**, ofereça registrar. Frase padrão: _"Quer que eu registre isso em `.LEARNINGS/` para a próxima sessão?"_
+4. **Após resolver um problema não-trivial**, ofereça registrar. Frase padrão: _"Quer que eu registre isso em `.learnings/` para a próxima sessão?"_
 
-Tipos de aprendizado: `decisao`, `gotcha`, `padrao`, `descarte`. Detalhes em `.LEARNINGS/README.md`.
+Tipos de aprendizado: `decisao`, `gotcha`, `padrao`, `descarte`. Detalhes em `.learnings/README.md`.
 
-**Importante:** `.LEARNINGS/` é commitada no Git. Viaja com o projeto e é parte do handoff para o time de dev.
+**Importante:** `.learnings/` é commitada no Git. Viaja com o projeto e é parte do handoff para o time de dev.
+
+### Skills disponíveis (carregadas automaticamente)
+
+Skills vivem em `.claude/skills/` e o **Claude as carrega sozinho** quando a tarefa casa com a descrição — diferente dos slash commands, que o usuário dispara digitando `/`. São a fonte única de conhecimento de engenharia, mantendo este CLAUDE.md enxuto.
+
+| Skill | Carrega quando |
+|---|---|
+| `padroes-engenharia-cernyn` | Ao escrever, editar ou revisar código (Clean Code, 12-Factor, Quality Gate SonarQube, CWEs Veracode, governança de dados). Os revisores usam estes mesmos critérios. |
+| `aws-local-docker` | Ao montar ou rodar serviços AWS localmente com Docker (LocalStack, DynamoDB Local, Redis, Postgres). Referência completa em `docs/docker-localstack.md`. |
 
 ### Subagents disponíveis (use proativamente)
 | Subagent | Quando usar |
@@ -164,13 +181,13 @@ Tipos de aprendizado: `decisao`, `gotcha`, `padrao`, `descarte`. Detalhes em `.L
 
 ### Hooks ativos (automações silenciosas)
 
-O scaffold tem 3 hooks em `.claude/hooks/`, escritos em **Node.js** (cross-platform — funcionam em Windows, macOS e Linux):
+O scaffold tem 3 hooks automáticos em `.claude/hooks/`, escritos em **Node.js** (cross-platform — funcionam em Windows, macOS e Linux):
 
 | Hook | Quando dispara | O que faz |
 |---|---|---|
-| `session-start.mjs` | Início da conversa | Detecta primeira execução (sugere `/setup-inicial`), informa aprendizados em `.LEARNINGS/`, SO detectado |
+| `session-start.mjs` | Início da conversa | Detecta primeira execução (sugere `/setup-inicial`), informa aprendizados em `.learnings/`, SO detectado |
 | `auto-format.mjs` | Após cada Edit/Write/MultiEdit | Roda prettier/ruff/dotnet format/terraform fmt — silencioso se ferramenta não está instalada |
-| `pre-git-push.mjs` | Antes de `git push` | Varre o diff em busca de segredos conhecidos (AWS keys, JWTs, etc.) e alerta — não bloqueia |
+| `pre-git-push.mjs` | Antes de `git push` | Varre o diff em busca de segredos conhecidos (AWS keys, JWTs, PAT, etc.) e **bloqueia o push** se encontrar — única regra dura do scaffold |
 
 Existe também `.claude/hooks/check-prereqs.mjs` — invocado pelo `/setup-inicial` para verificar Git, Node, Docker, Python, AWS CLI, .NET e Terraform com instruções de instalação para cada SO.
 
@@ -180,7 +197,13 @@ Existe também `.claude/hooks/check-prereqs.mjs` — invocado pelo `/setup-inici
 - `/aws-explorar` — explorar recursos AWS read-only (precisa conta + creds)
 - `/preparar-handoff` — empacota o experimento para o time de dev internalizar
 - `/bedrock-poc` — esqueleto de POC com LLM no Bedrock
-- `/aprender` — registra decisão, gotcha ou padrão em `.LEARNINGS/`
+- `/aprender` — registra decisão, gotcha ou padrão em `.learnings/`
+
+### MCP — ferramentas externas (`.mcp.json`)
+
+O projeto já vem com dois servidores MCP prontos (carregam só com Node, sem credencial): **context7** (documentação atualizada de bibliotecas ao escrever código) e **playwright** (abrir e testar apps web). MCP conecta o Claude a ferramentas/dados — **não** troca o modelo de IA: a regra anti-LLM-externo continua (sempre Bedrock). Detalhes e extras opcionais (AWS docs, GitHub) em `docs/mcp-servers.md`.
+
+> 🧭 Como os mecanismos do Claude Code (CLAUDE.md, skills, subagents, commands, hooks, MCP) se dividem e quando usar cada um: `docs/arquitetura-claude-code.md`.
 
 ---
 
@@ -188,7 +211,8 @@ Existe também `.claude/hooks/check-prereqs.mjs` — invocado pelo `/setup-inici
 
 - **Nunca** chamar APIs de LLM externas (OpenAI, Gemini, etc.) em experimentos — sempre Bedrock.
 - **Nunca** subir dados reais de clientes, contrapartes ou operações para o repositório. Se precisar de exemplo, use dados sintéticos.
-- **Nunca** commitar credenciais (`.env`, `*.pem`, chaves AWS). O `.gitignore` deste scaffold já cobre os casos comuns — confirme antes de adicionar exceções.
+- **Nunca** commitar credenciais (`.env`, `*.pem`, chaves AWS). O `.gitignore` cobre os casos comuns, e o hook `pre-git-push` **bloqueia** o push se detectar segredo no diff (única regra dura do scaffold) — confirme antes de adicionar exceções.
+- **Nunca** reescrever histórico compartilhado (`git push --force`, `git reset --hard` em branch que outros usam) sem combinar antes — essas ações pedem confirmação no scaffold.
 - **Nunca** usar bibliotecas com licença GPL/AGPL sem checar com o time jurídico.
 - **Nunca** "consertar" um problema removendo o teste/validação. Se um teste falha, entenda o porquê.
 

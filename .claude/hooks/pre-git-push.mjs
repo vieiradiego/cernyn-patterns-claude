@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Hook: PreToolUse on Bash (cross-platform)
 // Antes de um `git push`, escaneia o diff por padrões de segredos.
-// Alerta no stderr — não bloqueia.
+// BLOQUEIA o push se encontrar segredo — esta é a ÚNICA regra dura do scaffold
+// (vazar credencial é irreversível). Todo o resto é direcionamento, não bloqueio.
 
 import { spawnSync } from 'node:child_process';
 
@@ -15,7 +16,11 @@ process.stdin.on('end', () => {
     if (!/\bgit\s+push\b/.test(command)) {
       process.exit(0);
     }
-    scanForSecrets();
+    const findings = scanForSecrets();
+    if (findings.length > 0) {
+      blockPush(findings);
+      return;
+    }
   } catch {}
   process.exit(0);
 });
@@ -35,31 +40,37 @@ function scanForSecrets() {
   if (!diff) {
     diff = spawnSync('git', ['diff', '--cached'], { encoding: 'utf8' }).stdout;
   }
-  if (!diff) return;
+  if (!diff) return [];
 
   const findings = [];
   for (const p of patterns) {
     const matches = diff.match(p.re);
     if (matches && matches.length > 0) {
-      findings.push(`  ⚠️  ${p.name} (${matches.length} ocorrência(s))`);
+      findings.push(`  • ${p.name} (${matches.length} ocorrência(s))`);
     }
   }
+  return findings;
+}
 
-  if (findings.length > 0) {
-    const warning = `
-🔒 [revisor-seguranca / hook] AVISO antes do git push:
+function blockPush(findings) {
+  const reason = `🔒 PUSH BLOQUEADO — possível segredo no diff.
 
-Encontrei padrões que parecem segredos nas mudanças que você está prestes a enviar:
-
+Padrões que parecem credenciais nas mudanças a enviar:
 ${findings.join('\n')}
 
-Não estou bloqueando, mas confirme que:
-  1. Estes são exemplos falsos / dados de teste
-  2. OU rotacione o segredo antes de continuar
-  3. Considere rodar o subagent 'revisor-seguranca' antes de pushar
+Esta é a única regra de bloqueio do scaffold (vazar segredo é irreversível). Para resolver:
+  1. Remova o segredo do código (use variável de ambiente / .env, que está no .gitignore).
+  2. Se já foi commitado, ROTACIONE a credencial e limpe o histórico (peça ajuda ao revisor-seguranca).
+  3. Se for falso positivo (dado de teste), o humano pode dar o push manualmente no terminal,
+     ou desabilitar este hook em .claude/settings.json.`;
 
-Para abortar o push: Ctrl+C agora.
-`;
-    process.stderr.write(warning);
-  }
+  const output = {
+    hookSpecificOutput: {
+      hookEventName: 'PreToolUse',
+      permissionDecision: 'deny',
+      permissionDecisionReason: reason,
+    },
+  };
+  process.stdout.write(JSON.stringify(output));
+  process.exit(0);
 }

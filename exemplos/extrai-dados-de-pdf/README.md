@@ -26,7 +26,7 @@ Cernyn recomenda Node como direção corporativa, mas para este caso Python tem 
 - Pandas para o tratamento dos dados extraídos
 - Ecossistema de visualização (matplotlib, seaborn)
 
-É uma exceção justificada — registre em `.LEARNINGS/` como `decisao`.
+É uma exceção justificada — registre em `.learnings/` como `decisao`.
 
 ## Estrutura
 

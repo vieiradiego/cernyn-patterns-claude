@@ -87,7 +87,7 @@ Quando você rodar `/novo-experimento`, o Claude vai sugerir um destes arquétip
 
 1. **Cada experimento na sua subpasta** — não misturar código de diferentes ideias
 2. **README.md curto e claro** — o que é, como rodar, status atual
-3. **`.LEARNINGS/`** específica do experimento (opcional — pode usar a raiz)
+3. **`.learnings/`** específica do experimento (opcional — pode usar a raiz)
 4. **Não comitar dados reais** — use dados sintéticos
 5. **Quando amadurecer** — mover para repositório próprio antes do `/preparar-handoff`
 

@@ -1,6 +1,6 @@
 # Padrão Claude Code — por Cernyn
 
-[![Versão](https://img.shields.io/badge/versão-1.1.0-blue.svg)](./CHANGELOG.md)
+[![Versão](https://img.shields.io/badge/versão-1.3.0-blue.svg)](./CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-compatível-7C3AED.svg)](https://docs.claude.com/claude-code)
 [![Node.js](https://img.shields.io/badge/Node.js-≥20-43853d.svg)](https://nodejs.org/)
 [![Plataforma](https://img.shields.io/badge/plataforma-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](./docs/pre-requisitos.md)
@@ -34,6 +34,8 @@ Este scaffold resolve isso vindo **pré-configurado** com:
 - ✅ `CLAUDE.md` ensinando o Claude o **direcionamento Node + Next.js** (recomendação Cernyn) com suporte a legado .NET/Angular
 - ✅ **7 revisores especializados** (subagents) que revisam seu código didaticamente em PT-BR
 - ✅ **6 comandos prontos** (setup inicial, novo experimento, explorar AWS, preparar handoff, POC com Bedrock, registrar aprendizados)
+- ✅ **2 skills** que carregam conhecimento automaticamente — padrões de engenharia ao escrever código e como simular AWS local
+- ✅ **Servidores MCP prontos** — `context7` (documentação atualizada de bibliotecas) e `playwright` (testar apps web), funcionando direto do clone
 - ✅ **Docker Compose** para simular AWS local — você nem precisa de conta AWS
 - ✅ Aderência aos padrões corporativos do mercado: **Terraform** (IaC), **SonarQube** (qualidade), **Veracode** (segurança), **DataDog** (observabilidade)
 - ✅ Conversão direta para internalização pelo time de dev da sua empresa quando o experimento amadurecer
@@ -142,15 +144,20 @@ Ele faz perguntas sobre o que você quer experimentar e monta a estrutura inicia
 ├── ABOUT-CERNYN.md                    # 🏢 Apresentação da Cernyn
 ├── CHANGELOG.md                       # 📋 Histórico de versões do scaffold
 ├── .gitignore                         # 🚫 Arquivos não versionados
+├── .mcp.json                          # 🔌 Servidores MCP prontos (context7 + playwright)
 ├── .claude/
 │   ├── settings.json                  # ⚙️ Permissões, modelo, hooks
 │   ├── commands/                      # ⚡ 6 comandos prontos (/setup-inicial, etc.)
 │   ├── agents/                        # 🤖 7 revisores especializados
+│   ├── skills/                        # 🧩 2 skills auto-carregadas (padrões de engenharia, AWS local)
 │   └── hooks/                         # 🪝 4 hooks Node.js cross-platform
-├── .LEARNINGS/                        # 📒 Memória viva: decisões, gotchas, padrões
-│   ├── MEMORY.md                      #    Índice dos aprendizados
+├── .learnings/                        # 📒 Memória viva: decisões, gotchas, padrões
+│   ├── memory.md                      #    Índice dos aprendizados
 │   └── README.md                      #    Como usar
 ├── docs/
+│   ├── README.md                      # 🧭 Índice de navegação da documentação
+│   ├── arquitetura-claude-code.md     # 🏗️ Como os primitivos do Claude Code se dividem
+│   ├── mcp-servers.md                 # 🔌 Servidores MCP (ferramentas externas)
 │   ├── pre-requisitos.md              # ✅ O que instalar antes de começar
 │   ├── padroes-cernyn.md              # 📐 Convenções recomendadas pela Cernyn
 │   ├── stack-cernyn.md                # 🏢 Node + Next.js (direção) e legado .NET/Angular
@@ -180,7 +187,7 @@ Ele faz perguntas sobre o que você quer experimentar e monta a estrutura inicia
 | `/aws-explorar` | Explora recursos AWS read-only (precisa de conta e credenciais) |
 | `/preparar-handoff` | Empacota seu experimento para o time de dev da sua empresa internalizar |
 | `/bedrock-poc` | Esqueleto de POC usando LLM via Amazon Bedrock |
-| `/aprender` | Registra uma decisão, gotcha ou padrão em `.LEARNINGS/` |
+| `/aprender` | Registra uma decisão, gotcha ou padrão em `.learnings/` |
 
 ---
 
@@ -219,7 +226,7 @@ R: A recomendação Cernyn é **Amazon Bedrock** — por questões de governanç
 R: Para **experimentos novos**, a recomendação Cernyn é **Node (TypeScript) + Next.js**. .NET é mantido para legado, Angular está em descontinuação no mercado corporativo. Se você herdou algo em .NET/Angular para manter, sem problema — os revisores `revisor-dotnet` e `revisor-angular` continuam ajudando.
 
 **P: O Claude vai bloquear comandos perigosos?**
-R: Não. Este scaffold **não tem guardrails de bloqueio**. Ele te direciona, mas você decide. Confiamos no seu julgamento — e contamos com o `revisor-seguranca` para flag de risco.
+R: Quase nada — por design. O scaffold **direciona, você decide**: ações destrutivas (push, merge, `rm`, `terraform apply`, `git reset --hard`, etc.) **pedem sua confirmação**, mas não são bloqueadas. A **única exceção** é vazamento de segredo: o hook `pre-git-push` **bloqueia** um `git push` se detectar credencial no diff (é irreversível). Fora isso, confiamos no seu julgamento — e contamos com o `revisor-seguranca` para flag de risco.
 
 **P: Como entrego o experimento para o time de dev da minha empresa?**
 R: Rode `/preparar-handoff` — ele gera um README de entrega completo. Veja também `docs/handoff-para-dev.md`.

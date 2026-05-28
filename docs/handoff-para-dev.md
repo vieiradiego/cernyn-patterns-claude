@@ -34,7 +34,7 @@ Um pacote de handoff completo tem:
 - `README.md` explicando o que é e como rodar
 - `HANDOFF.md` gerado por `/preparar-handoff`
 - `docs/decisoes.md` com decisões técnicas e suas justificativas
-- `.LEARNINGS/` completo
+- `.learnings/` completo
 
 ### 3. Setup reproduzível
 - `docker-compose.yml` que sobe tudo localmente
@@ -87,7 +87,7 @@ Antes de "passar a chave", agende 30 minutos com o tech lead da área:
 Pauta sugerida:
 1. O que o experimento faz e por que importa
 2. Quem usa hoje
-3. Decisões técnicas críticas (mostrar `.LEARNINGS/`)
+3. Decisões técnicas críticas (mostrar `.learnings/`)
 4. Gaps conhecidos
 5. Roadmap esperado pelo negócio
 6. Quem é o **owner de negócio** após o handoff
@@ -116,7 +116,7 @@ Combine cadência (semanal, quinzenal) com o tech lead para acompanhar:
 - 🚫 **Entregar e sumir** — o time de dev não conhece o problema de negócio como você
 - 🚫 **Esconder problemas conhecidos** — eles vão aparecer no review e perde-se confiança
 - 🚫 **Mudar tudo no último minuto** — passe o que está, não tente "melhorar uma última vez"
-- 🚫 **Não documentar decisões** — `.LEARNINGS/` existe para isso, use
+- 🚫 **Não documentar decisões** — `.learnings/` existe para isso, use
 - 🚫 **Achar que o time vai usar sua stack se ela não é padrão** — eles vão reescrever; mais vale você ter usado o padrão desde o início
 
 **Faça:**

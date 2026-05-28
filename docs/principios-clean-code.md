@@ -138,7 +138,7 @@ Classes devem ser **abertas para extensão, fechadas para modificação**.
 
 "Depois eu arrumo" é como o débito técnico nasce. Em experimento é OK, mas:
 - Marque com `// TODO: motivo + dono` (não TODO órfão)
-- Registre em `.LEARNINGS/` se a decisão tem implicação futura
+- Registre em `.learnings/` se a decisão tem implicação futura
 
 ---
 
